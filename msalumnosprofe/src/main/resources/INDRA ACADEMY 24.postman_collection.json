@@ -24,15 +24,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8081/alumno/1",
+					"raw": "http://localhost:8081/alumno",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8081",
 					"path": [
-						"alumno",
-						"1"
+						"alumno"
 					]
 				}
 			},

@@ -123,6 +123,9 @@ public class AlumnoController {
 	{
 		ResponseEntity<?> responseEntity = null;
 		
+				var saludo = "HOLA";
+				saludo.charAt(5);
+				
 				this.alumnoService.deleteById(id);
 				responseEntity = ResponseEntity.ok().build();
 				
