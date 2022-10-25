@@ -1,11 +1,16 @@
 package edu.indra.alumnos.controller;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -80,14 +85,34 @@ public class AlumnoController {
 		
 	}
 	
+	private ResponseEntity<?> obtenerErrores (BindingResult bindingResult)
+	{
+		ResponseEntity<?> responseEntity = null;
+		List<ObjectError> lista_errores = null;
+			
+				lista_errores = bindingResult.getAllErrors();
+				responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(lista_errores);
+		
+		return responseEntity;
+		
+	}
+	
 	@PostMapping//POST http://localhost:8081/alumno
-	public ResponseEntity<?> insetarAlumno (@RequestBody Alumno alumno)
+	public ResponseEntity<?> insetarAlumno (@Valid @RequestBody Alumno alumno, BindingResult bindingResult)
 	{
 		ResponseEntity<?> responseEntity = null;
 		Alumno alumno_creado = null;
 		
-				alumno_creado = this.alumnoService.save(alumno);
-				responseEntity = ResponseEntity.status(HttpStatus.CREATED).body(alumno_creado);
+				if (bindingResult.hasErrors())
+				{
+					//el alumno viene con errores
+					responseEntity = obtenerErrores(bindingResult);
+					
+				} else {
+					alumno_creado = this.alumnoService.save(alumno);
+					responseEntity = ResponseEntity.status(HttpStatus.CREATED).body(alumno_creado);
+				}
+				
 				
 		
 		return responseEntity;
@@ -96,21 +121,29 @@ public class AlumnoController {
 	
 
 	@PutMapping("/{id}") //PUT http://localhost:8081/alumno/5
-	public ResponseEntity<?> modificarAlumno (@RequestBody Alumno alumno, @PathVariable Long id)
+	public ResponseEntity<?> modificarAlumno (@Valid @RequestBody Alumno alumno, BindingResult bindingResult, @PathVariable Long id)
 	{
 		ResponseEntity<?> responseEntity = null;
 		Optional<Alumno> o_alumno = null;
 		
-				o_alumno = this.alumnoService.update(alumno, id);
+		if (bindingResult.hasErrors())
+		{
+			//el alumno viene con errores
+			responseEntity = obtenerErrores(bindingResult);
+		} else {
+			o_alumno = this.alumnoService.update(alumno, id);
+			
+			if (o_alumno.isPresent())
+			{
+				Alumno alumno_modificado = o_alumno.get();
+				responseEntity = ResponseEntity.ok(alumno_modificado);
+			} else {
+				//no había un alumno con ese ID
+				responseEntity = ResponseEntity.notFound().build();//404
+			}
+		}
+		
 				
-				if (o_alumno.isPresent())
-				{
-					Alumno alumno_modificado = o_alumno.get();
-					responseEntity = ResponseEntity.ok(alumno_modificado);
-				} else {
-					//no había un alumno con ese ID
-					responseEntity = ResponseEntity.notFound().build();//404
-				}
 				
 		
 		return responseEntity;

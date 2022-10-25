@@ -11,6 +11,11 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "alumnos")
@@ -20,10 +25,17 @@ public class Alumno {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)//equivale a autoINC en MySql
 	private Long id;
 	
+	@Size(min = 3, max = 20)
 	private String nombre;
+	
+	@NotEmpty//apellido tenga longitud >1
 	private String apellido;
+	
+	@Email
 	private String email;
 	
+	@Min(0)
+	@Max(130)
 	private int edad;
 	
 	@Column(name = "creado_en")
