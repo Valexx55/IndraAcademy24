@@ -98,4 +98,12 @@ public class Alumno {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public String toString() {
+		return "Alumno [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", edad="
+				+ edad + ", creadoEn=" + creadoEn + "]";
+	}
+	
+	
+
 }
