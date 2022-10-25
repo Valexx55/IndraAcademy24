@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +36,8 @@ public class AlumnoController {
 	//PUT - MODIFICAR 1 ALUMNO EXISENTE
 	//DELETE - BORRAR EL ALUMNO
 	
+	Logger logger = LoggerFactory.getLogger(AlumnoController.class);
+	
 	@Autowired
 	AlumnoService alumnoService;
 	
@@ -57,8 +61,10 @@ public class AlumnoController {
 		ResponseEntity<?> responseEntity = null;
 		Iterable<Alumno> listado_alumnos = null;
 		
+				logger.debug("en listarAlumnos ()");
 				listado_alumnos = this.alumnoService.findAll();
 				responseEntity = ResponseEntity.ok(listado_alumnos);
+				logger.debug("salida listarAlumnos () " + listado_alumnos);
 		
 		return responseEntity;
 		
@@ -91,6 +97,7 @@ public class AlumnoController {
 		List<ObjectError> lista_errores = null;
 			
 				lista_errores = bindingResult.getAllErrors();
+				lista_errores.forEach(oerror -> logger.error(oerror.toString()));
 				responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body(lista_errores);
 		
 		return responseEntity;
@@ -103,12 +110,15 @@ public class AlumnoController {
 		ResponseEntity<?> responseEntity = null;
 		Alumno alumno_creado = null;
 		
+				logger.debug("en insetarAlumno()");
 				if (bindingResult.hasErrors())
 				{
 					//el alumno viene con errores
+					logger.debug("el alumno viene con errores");
 					responseEntity = obtenerErrores(bindingResult);
 					
 				} else {
+					logger.debug("el alumno viene sin errores");
 					alumno_creado = this.alumnoService.save(alumno);
 					responseEntity = ResponseEntity.status(HttpStatus.CREATED).body(alumno_creado);
 				}
