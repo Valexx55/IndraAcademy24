@@ -13,6 +13,11 @@ import org.springframework.stereotype.Repository;
 
 import edu.indra.alumnos.repository.entity.Alumno;
 
+
+//TODO basándose en el ejemplo de esta web https://howtodoinjava.com/spring-boot2/pagination-sorting-example/
+//haced un servicio que me devuelva en páginas los alumnos ordenados por edad de menor a mayor 
+//cuando lo tengáis, me lo ponéis en el codeshare, gracias :)
+
 @Repository
 public interface AlumnoRepository extends PagingAndSortingRepository<Alumno, Long> {
 //public interface AlumnoRepository extends CrudRepository<Alumno, Long> {
@@ -37,6 +42,11 @@ public interface AlumnoRepository extends PagingAndSortingRepository<Alumno, Lon
 		
 		@Query("SELECT a FROM Alumno a WHERE a.nombre LIKE %?1% OR a.apellido LIKE %?1%")
 		public Iterable<Alumno> busquedaPorNombreOApellidoJPQL (String patron);
+		
+		//TODO hacer el servicio y el controlador 
+		//4.1 CON PAGINACIÓN
+		@Query("select a from Alumno a where a.nombre like %?1% or a.apellido like %?1%")
+		public Page<Alumno> busquedaPorNombreOApellidoPaginado (String patron, Pageable pageable);
 		
 	
 	//3 NATIVAS

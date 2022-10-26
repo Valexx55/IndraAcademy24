@@ -10,7 +10,9 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -326,6 +328,40 @@ public class AlumnoController {
 			listado_alumnos = this.alumnoService.findAll(pageable);
 			responseEntity = ResponseEntity.ok(listado_alumnos);
 			logger.debug("salida obtenerAlumnosPorPagina () " + listado_alumnos);
+
+		return responseEntity;
+
+	}
+	
+	//http://localhost:8081/alumno/pagina?page=0&size=3&sort=edad,nombre,DESC
+	@GetMapping("/paginaOrdenEdad") // GET http://localhost:8081/alumno/pagina?page=0&size=3&sort=edad,ASC
+	public ResponseEntity<?> obtenerAlumnosPorPaginaOrdenEdad(Pageable pageable ) {
+		ResponseEntity<?> responseEntity = null;
+		Iterable<Alumno> listado_alumnos = null;
+
+			logger.debug("en obtenerAlumnosPorPaginaOrdenEdad ()");
+			listado_alumnos = this.alumnoService.findAll(pageable);
+			responseEntity = ResponseEntity.ok(listado_alumnos);
+			logger.debug("salida obtenerAlumnosPorPaginaOrdenEdad () " + listado_alumnos);
+
+		return responseEntity;
+
+	}
+	
+	@GetMapping("/paginaOrdenEdadParam") // GET http://localhost:8081/alumno/pagina?page=0&size=3&sort=edad
+	public ResponseEntity<?> obtenerAlumnosPorPaginaOrdenEdadParam(
+			@RequestParam(name = "page") int page,
+			@RequestParam(name = "size") int size,
+			@RequestParam(name = "sort", required = false, defaultValue = "edad") String sort) {
+		ResponseEntity<?> responseEntity = null;
+		Iterable<Alumno> listado_alumnos = null;
+
+			logger.debug("en paginaOrdenEdadParam ()");
+			
+				 Pageable pageable = PageRequest.of(page, size, Sort.by(sort).ascending());
+				listado_alumnos = this.alumnoService.findAll(pageable);
+				responseEntity = ResponseEntity.ok(listado_alumnos);
+				logger.debug("salida paginaOrdenEdadParam () " + listado_alumnos);
 
 		return responseEntity;
 
