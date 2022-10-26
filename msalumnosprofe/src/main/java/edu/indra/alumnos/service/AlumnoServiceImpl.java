@@ -6,7 +6,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
+import edu.indra.alumnos.dto.FraseChuckNorris;
 import edu.indra.alumnos.repository.AlumnoRepository;
 import edu.indra.alumnos.repository.entity.Alumno;
 
@@ -59,6 +61,20 @@ public class AlumnoServiceImpl implements AlumnoService {
 				optional = Optional.of(alumno_leido);
 			}
 			//2 modificar
+		
+		return optional;
+	}
+
+	@Override
+	public Optional<FraseChuckNorris> obtenerFraseAleatoriaChuckNorris() {
+		Optional<FraseChuckNorris> optional = Optional.empty();
+		FraseChuckNorris fraseChuckNorris = null;
+		RestTemplate restTemplate = null;
+		
+			restTemplate = new RestTemplate();
+			fraseChuckNorris = restTemplate.getForObject("https://api.chucknorris.io/jokes/random", FraseChuckNorris.class);
+			optional = Optional.of(fraseChuckNorris);
+			
 		
 		return optional;
 	}

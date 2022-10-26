@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.indra.alumnos.dto.FraseChuckNorris;
 import edu.indra.alumnos.repository.entity.Alumno;
 import edu.indra.alumnos.service.AlumnoService;
 
@@ -169,8 +170,8 @@ public class AlumnoController {
 	{
 		ResponseEntity<?> responseEntity = null;
 		
-				var saludo = "HOLA";
-				saludo.charAt(5);
+				//var saludo = "HOLA";
+				//saludo.charAt(5);// https://developer.oracle.com/learn/technical-articles/jdk-10-local-variable-type-inference
 				
 				this.alumnoService.deleteById(id);
 				responseEntity = ResponseEntity.ok().build();
@@ -178,5 +179,34 @@ public class AlumnoController {
 		return responseEntity;
 		
 	}
+	
+	
+	@GetMapping("/obtenerFraseAleatoriaChuckNorris") //GET http://localhost:8081/alumno/obtenerFraseAleatoriaChuckNorris
+	public ResponseEntity<?> obtenerFraseAleatoriaChuckNorris ()
+	{
+		ResponseEntity<?> responseEntity = null;
+		Optional<FraseChuckNorris> o_frase = null;
+		
+				logger.debug("en obtenerFraseAleatoriaChuckNorris()");
+				o_frase = this.alumnoService.obtenerFraseAleatoriaChuckNorris();
+				if (o_frase.isPresent())
+				{
+					
+					FraseChuckNorris frase = o_frase.get();
+					responseEntity = ResponseEntity.ok(frase);
+					logger.debug("FRASE recuperada " + frase);
+				} else {
+					//no ha obtenido una frase
+					logger.debug("no ha obtenido una frase");
+					responseEntity = ResponseEntity.noContent().build();
+				}
+				
+		
+		return responseEntity;
+		
+	}
+	
+	
+	
 
 }

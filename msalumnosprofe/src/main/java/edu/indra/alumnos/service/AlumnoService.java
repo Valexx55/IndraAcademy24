@@ -2,6 +2,7 @@ package edu.indra.alumnos.service;
 
 import java.util.Optional;
 
+import edu.indra.alumnos.dto.FraseChuckNorris;
 import edu.indra.alumnos.repository.entity.Alumno;
 
 public interface AlumnoService {
@@ -17,5 +18,7 @@ public interface AlumnoService {
 	public void deleteById (Long id);
 	
 	public Optional<Alumno> update (Alumno alumno, Long id);
+	
+	public Optional<FraseChuckNorris> obtenerFraseAleatoriaChuckNorris ();
 
 }
