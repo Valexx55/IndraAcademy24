@@ -2,21 +2,28 @@ package edu.indra.alumnos.repository;
 
 import java.util.Map;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import edu.indra.alumnos.repository.entity.Alumno;
 
 @Repository
-public interface AlumnoRepository extends CrudRepository<Alumno, Long> {
+public interface AlumnoRepository extends PagingAndSortingRepository<Alumno, Long> {
+//public interface AlumnoRepository extends CrudRepository<Alumno, Long> {
 	
 	//1 KEY WORD QUERIES
 	
 		//1 OBTENER UN LISTADO DE ALUMNOS EN UN RANGO DE EDAD
 		public Iterable<Alumno> findByEdadBetween(int edad_min, int edad_max);
+		
+		//1.1 OBTENER UN LISTADO DE ALUMNOS EN UN RANGO DE EDAD paginado
+		public Page<Alumno> findByEdadBetween(int edad_min, int edad_max, Pageable pageable);
 		
 		//2 OBTENER UN LISTADO DE ALUMNOS CUYO NOMBRE CUMPLA UN PATRÓN con like (hay que concatenar los comodines %)
 		public Iterable<Alumno> findByNombreLike(String buscar);

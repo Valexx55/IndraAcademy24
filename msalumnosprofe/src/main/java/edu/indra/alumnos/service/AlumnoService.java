@@ -3,6 +3,8 @@ package edu.indra.alumnos.service;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 
@@ -14,6 +16,8 @@ public interface AlumnoService {
 	//ABMC ALUMNOS
 	
 	public Iterable<Alumno> findAll ();
+	
+	public Iterable<Alumno> findAll (Pageable pageable);
 	
 	public Optional<Alumno> findById (Long id);
 	
@@ -40,6 +44,8 @@ public interface AlumnoService {
 	public Map<String, Number> procedimientoEstadisticosEdad();
 	
 	public Iterable<Alumno> procedimientoAlumnosNombreComo(String patron);
+	
+	public Iterable<Alumno> findByEdadBetween(int edad_min, int edad_max, Pageable pageable);
 
 
 }

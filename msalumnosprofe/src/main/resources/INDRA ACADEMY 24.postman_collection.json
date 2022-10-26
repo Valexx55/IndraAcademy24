@@ -133,6 +133,234 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "POST VALIDACION CASO INCORRECTO",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Pa\",\r\n    \"email\": \"paquitarreo.es\",\r\n    \"edad\": 666\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/alumno",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"alumno"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT CON ERRORES DE VALIDACION",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\": 3,\r\n        \"nombre\": \"Pa\",\r\n        \"apellido\": \"LOPEZ\",\r\n        \"email\": \"paquita@correo.es\",\r\n        \"edad\": 66,\r\n        \"creadoEn\": \"2022-10-25T08:01:03.056+00:00\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/alumno/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"alumno",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LISTADO ALUMNOS POR RANGO EDAD",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/alumno/obtenerAlumnosEnRangoEdad?edadmin=5&edamax=8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"alumno",
+						"obtenerAlumnosEnRangoEdad"
+					],
+					"query": [
+						{
+							"key": "edadmin",
+							"value": "5"
+						},
+						{
+							"key": "edamax",
+							"value": "8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SELECT NOMBRE O APELLIDO JPQL LIKE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/alumno/listadoAlumnosConNombreOApellidoJPQL/p",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"alumno",
+						"listadoAlumnosConNombreOApellidoJPQL",
+						"p"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SELECT ALUMNOS POR NOMBRE O APELLIDO LIKE NATIVA",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/alumno/listadoAlumnosConNombreOApellidoNativa/p",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"alumno",
+						"listadoAlumnosConNombreOApellidoNativa",
+						"p"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AlumnosRegistradosHoy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/alumno/obtenerAlumnosRegistradosHoy",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"alumno",
+						"obtenerAlumnosRegistradosHoy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ObtenerEstadisticosEdadAlumnos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/alumno/obtenerEstadisticosEdadAlumnos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"alumno",
+						"obtenerEstadisticosEdadAlumnos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ObtenerAlumnosNombreComoProc/p",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/alumno/obtenerAlumnosNombreComoProc/p",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"alumno",
+						"obtenerAlumnosNombreComoProc",
+						"p"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ObtenerAlumnosEnRangoEdadPaginado",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/alumno/obtenerAlumnosEnRangoEdadPaginado?edadmin=15&edamax=40&page=1&size=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"alumno",
+						"obtenerAlumnosEnRangoEdadPaginado"
+					],
+					"query": [
+						{
+							"key": "edadmin",
+							"value": "15"
+						},
+						{
+							"key": "edamax",
+							"value": "40"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

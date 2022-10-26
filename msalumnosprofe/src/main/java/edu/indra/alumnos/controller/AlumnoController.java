@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -202,6 +203,21 @@ public class AlumnoController {
 		return responseEntity;
 
 	}
+	
+	@GetMapping("/obtenerAlumnosEnRangoEdadPaginado") // GET http://localhost:8081/alumno/obtenerAlumnosEnRangoEdadPaginado?edadmin=5&edamax=8&page=0&size=3
+	public ResponseEntity<?> obtenerAlumnosEnRangoEdadPaginado(@RequestParam(name = "edadmin") int edadmin,
+			@RequestParam(name = "edamax") int edamax, Pageable pageable) {
+		ResponseEntity<?> responseEntity = null;
+		Iterable<Alumno> listado_alumnos = null;
+
+			logger.debug("en obtenerAlumnosEnRangoEdadPaginado ()");
+			listado_alumnos = this.alumnoService.findByEdadBetween(edadmin, edamax, pageable);
+			responseEntity = ResponseEntity.ok(listado_alumnos);
+			logger.debug("salida obtenerAlumnosEnRangoEdadPaginado () " + listado_alumnos);
+
+		return responseEntity;
+
+	}
 
 	@GetMapping("/obtenerAlumnosPorNombreLike") // GET
 												// http://localhost:8081/alumno/obtenerAlumnosPorNombreLike?buscar=mar
@@ -296,6 +312,20 @@ public class AlumnoController {
 			listado_alumnos = this.alumnoService.procedimientoAlumnosNombreComo(patron);
 			responseEntity = ResponseEntity.ok(listado_alumnos);
 			logger.debug("salida obtenerAlumnosNombreComoProc () " + listado_alumnos);
+
+		return responseEntity;
+
+	}
+	
+	@GetMapping("/pagina") // GET http://localhost:8081/alumno/pagina?page=0&size=3
+	public ResponseEntity<?> obtenerAlumnosPorPagina(Pageable pageable ) {
+		ResponseEntity<?> responseEntity = null;
+		Iterable<Alumno> listado_alumnos = null;
+
+			logger.debug("en obtenerAlumnosPorPagina ()");
+			listado_alumnos = this.alumnoService.findAll(pageable);
+			responseEntity = ResponseEntity.ok(listado_alumnos);
+			logger.debug("salida obtenerAlumnosPorPagina () " + listado_alumnos);
 
 		return responseEntity;
 
