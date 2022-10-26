@@ -1,5 +1,6 @@
 package edu.indra.alumnos.service;
 
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -95,6 +96,38 @@ public class AlumnoServiceImpl implements AlumnoService {
 	@Transactional(readOnly = true)
 	public Iterable<Alumno> findByNombreContaining(String cadena) {
 		return this.alumnoRepository.findByNombreContaining(cadena);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Iterable<Alumno> busquedaPorNombreOApellidoJPQL(String patron) {
+		return this.alumnoRepository.busquedaPorNombreOApellidoJPQL(patron);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Iterable<Alumno> busquedaPorNombreOApellidoNativa(String patron) {
+		return this.alumnoRepository.busquedaPorNombreOApellidoNativa(patron);
+	}
+
+	@Override
+	@Transactional //AUNQUE EL PROCEDIMIENTO NO MODIFIQUE EL ESTADO DE LA BASE DE DATOS (SOLO CONSULTA) DEBO INDICAR READONLY A FALSE -peculiaridad de los procedimientos almancenados-
+	public Iterable<Alumno> procedimientoAlumnosAltaHoy() {
+
+		return this.alumnoRepository.procedimientoAlumnosAltaHoy();
+	}
+
+	@Override
+	@Transactional
+	public Map<String, Number> procedimientoEstadisticosEdad() {
+		
+		return this.alumnoRepository.procedimientoEstadisticosEdad(0, 0, 0f);
+	}
+
+	@Override
+	@Transactional
+	public Iterable<Alumno> procedimientoAlumnosNombreComo(String patron) {
+		return this.alumnoRepository.procedimientoAlumnosNombreComo("%"+patron+"%");
 	}
 
 }
