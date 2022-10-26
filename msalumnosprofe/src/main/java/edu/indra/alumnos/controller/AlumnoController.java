@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.indra.alumnos.dto.FraseChuckNorris;
@@ -207,6 +208,51 @@ public class AlumnoController {
 	}
 	
 	
+	@GetMapping("/obtenerAlumnosEnRangoEdad") //GET http://localhost:8081/alumno/obtenerAlumnosEnRangoEdad?edadmin=5&edamax=8
+	public ResponseEntity<?> obtenerAlumnosEnRangoEdad (@RequestParam(name = "edadmin") int edadmin, @RequestParam(name = "edamax") int edamax )
+	{
+		ResponseEntity<?> responseEntity = null;
+		Iterable<Alumno> listado_alumnos = null;
+		
+				logger.debug("en obtenerAlumnosEnRangoEdad ()");
+				listado_alumnos = this.alumnoService.findByEdadBetween(edadmin, edamax);
+				responseEntity = ResponseEntity.ok(listado_alumnos);
+				logger.debug("salida obtenerAlumnosEnRangoEdad () " + listado_alumnos);
+		
+		return responseEntity;
+		
+	}
+	
+	@GetMapping("/obtenerAlumnosPorNombreLike") //GET http://localhost:8081/alumno/obtenerAlumnosPorNombreLike?buscar=mar
+	public ResponseEntity<?> obtenerAlumnosPorNombreLike (@RequestParam(name = "buscar") String buscar)
+	{
+		ResponseEntity<?> responseEntity = null;
+		Iterable<Alumno> listado_alumnos = null;	
+		
+		logger.debug("en obtenerAlumnosPorNombre ()");
+		listado_alumnos = this.alumnoService.findByNombreLike(buscar);
+		responseEntity = ResponseEntity.ok(listado_alumnos);
+		logger.debug("salida obtenerAlumnosPorNombre ()");
+				
+		
+		return responseEntity;
+	}
+	
+	
+	 @GetMapping("/obtenerAlumnosNombreContiene") //GET http://localhost:8081/alumno/obtenerAlumnosNombreContiene?cadena=PAC
+		public ResponseEntity<?> obtenerAlumnosNombreContiene (@RequestParam(name = "cadena") String cadena)
+		{
+			ResponseEntity<?> responseEntity = null;
+			Iterable<Alumno> listado_alumnos = null;
+			
+					logger.debug("en obtenerAlumnosNombreContiene ()");
+					listado_alumnos = this.alumnoService.findByNombreContaining(cadena);
+					responseEntity = ResponseEntity.ok(listado_alumnos);
+					logger.debug("salida obtenerAlumnosEnRangoEdad () " + listado_alumnos);
+			
+			return responseEntity;
+			
+		}
 	
 
 }

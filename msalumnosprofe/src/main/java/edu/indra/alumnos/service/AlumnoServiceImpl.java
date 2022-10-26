@@ -79,4 +79,22 @@ public class AlumnoServiceImpl implements AlumnoService {
 		return optional;
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public Iterable<Alumno> findByEdadBetween(int edad_min, int edad_max) {
+		return this.alumnoRepository.findByEdadBetween(edad_min, edad_max);
+	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public Iterable<Alumno> findByNombreLike(String buscar){
+		return this.alumnoRepository.findByNombreLike("%"+buscar+"%");
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Iterable<Alumno> findByNombreContaining(String cadena) {
+		return this.alumnoRepository.findByNombreContaining(cadena);
+	}
+
 }

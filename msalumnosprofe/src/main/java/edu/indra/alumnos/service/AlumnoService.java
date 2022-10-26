@@ -20,5 +20,11 @@ public interface AlumnoService {
 	public Optional<Alumno> update (Alumno alumno, Long id);
 	
 	public Optional<FraseChuckNorris> obtenerFraseAleatoriaChuckNorris ();
+	
+	public Iterable<Alumno> findByEdadBetween(int edad_min, int edad_max);
+	
+	public Iterable<Alumno> findByNombreLike(String buscar);
+	
+	public Iterable<Alumno> findByNombreContaining(String cadena);
 
 }
