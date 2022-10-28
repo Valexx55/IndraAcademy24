@@ -105,6 +105,10 @@ public class Curso {
 		return "Curso [id=" + id + ", nombre=" + nombre + ", creadoEn=" + creadoEn + "]";
 	}
 	
+	public int getNumAlumnos ()
+	{
+		return this.alumnos.size();
+	}
 	
 
 }

@@ -7,9 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import edu.indra.alumnos.dto.FraseChuckNorris;
 import edu.indra.comun.entity.Alumno;
+import edu.indra.comun.entity.Curso;
 
 public interface AlumnoService {
 	
@@ -46,6 +48,8 @@ public interface AlumnoService {
 	public Iterable<Alumno> procedimientoAlumnosNombreComo(String patron);
 	
 	public Iterable<Alumno> findByEdadBetween(int edad_min, int edad_max, Pageable pageable);
+	
+	public Optional<Curso> obtenerCursoAlumno(Long idalumno);
 
 
 }

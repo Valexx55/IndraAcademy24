@@ -1,5 +1,6 @@
 package edu.indra.alumnos.controller;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.indra.alumnos.dto.FraseChuckNorris;
 import edu.indra.alumnos.service.AlumnoService;
 import edu.indra.comun.entity.Alumno;
+import edu.indra.comun.entity.Curso;
 
 //@CrossOrigin(originPatterns = {"*"}, methods = {RequestMethod.GET})
 @RestController
@@ -372,6 +374,25 @@ public class AlumnoController {
 				listado_alumnos = this.alumnoService.findAll(pageable);
 				responseEntity = ResponseEntity.ok(listado_alumnos);
 				logger.debug("salida paginaOrdenEdadParam () " + listado_alumnos);
+
+		return responseEntity;
+
+	}
+	
+	
+	@GetMapping("/obtenerCursoAlumnoViaFeign/{idalumno}") // GET http://localhost:8081/alumno/obtenerCursoAlumnoViaFeign/1
+	public ResponseEntity<?> obtenerCursoAlumnoViaFeign(@PathVariable Long idalumno) {
+		ResponseEntity<?> responseEntity = null;
+		Optional<Curso> o_curso = null;
+
+			o_curso = this.alumnoService.obtenerCursoAlumno(idalumno);
+			if (o_curso.isPresent()) {
+				Curso curso_leido = o_curso.get();
+				responseEntity = ResponseEntity.ok(curso_leido);
+			} else {
+				// no había un alumno con ese ID
+				responseEntity = ResponseEntity.noContent().build();
+			}
 
 		return responseEntity;
 

@@ -3,6 +3,8 @@ package edu.indra.cursos.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.indra.comun.entity.Alumno;
 import edu.indra.comun.entity.Curso;
+import edu.indra.cursos.controller.CursoController;
 import edu.indra.cursos.repository.CursoRepository;
 
 @Service
 public class CursoServiceImpl implements CursoService {
+	
 
 	@Autowired
 	CursoRepository cursoRepository;
@@ -96,6 +100,12 @@ public class CursoServiceImpl implements CursoService {
 			}
 
 		return optional;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Optional<Curso> obtenerCursoAlumno(Long id_alumno) {
+		return this.cursoRepository.obtenerCursoAlumnoNativa(id_alumno);
 	}
 
 }
