@@ -158,9 +158,12 @@ public class AlumnoServiceImpl implements AlumnoService {
 	
 	
 	@Override
-	public Optional<Curso> obtenerCursoAlumno(Long idalumno) {
+	public Optional<Curso> obtenerCursoAlumno(Long idalumno) throws Exception{
 		
 		Optional<Curso> ocurso = null;
+		
+		try {
+			
 		
 			logger.debug("en obtenerCursoAlumno ()");
 			logger.debug("LLAMANDO A FEING ...");
@@ -170,7 +173,9 @@ public class AlumnoServiceImpl implements AlumnoService {
 			cabeceras.put("nombre", "valentino");
 			cabeceras.put("contrasenia", "nomejodasrafa");
 			
+			logger.debug("FASE1 -PROVISIONAL ");
 			ocurso = this.cursoFeignClient.obtenerCursoAlumno(idalumno, cabeceras);
+			logger.debug("FASE2 -DEFINITIVA ");
 			
 			if (ocurso.isPresent())
 			{
@@ -178,6 +183,12 @@ public class AlumnoServiceImpl implements AlumnoService {
 			}else {
 				logger.debug("Alumno NO matriculado en Ningún curso");
 			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			logger.error("DESHACER LA FASE 1", e);
+			throw e;
+			
+		}
 		
 		return ocurso;
 		

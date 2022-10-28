@@ -49,7 +49,7 @@ public interface AlumnoService {
 	
 	public Iterable<Alumno> findByEdadBetween(int edad_min, int edad_max, Pageable pageable);
 	
-	public Optional<Curso> obtenerCursoAlumno(Long idalumno);
+	public Optional<Curso> obtenerCursoAlumno(Long idalumno) throws Exception;
 
 
 }

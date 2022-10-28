@@ -381,7 +381,7 @@ public class AlumnoController {
 	
 	
 	@GetMapping("/obtenerCursoAlumnoViaFeign/{idalumno}") // GET http://localhost:8081/alumno/obtenerCursoAlumnoViaFeign/1
-	public ResponseEntity<?> obtenerCursoAlumnoViaFeign(@PathVariable Long idalumno) {
+	public ResponseEntity<?> obtenerCursoAlumnoViaFeign(@PathVariable Long idalumno) throws Exception {
 		ResponseEntity<?> responseEntity = null;
 		Optional<Curso> o_curso = null;
 
