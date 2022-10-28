@@ -11,7 +11,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import edu.indra.alumnos.repository.entity.Alumno;
+import edu.indra.comun.entity.Alumno;
 
 
 //TODO basándose en el ejemplo de esta web https://howtodoinjava.com/spring-boot2/pagination-sorting-example/

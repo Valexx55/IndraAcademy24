@@ -1,6 +1,7 @@
-package edu.indra.cursos.repository.entity;
+package edu.indra.comun.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +22,8 @@ public class Curso {
 	private Long id;
 	
 	private String nombre;
+	
+	//private List<Alumno> alumnos;
 	
 	
 	@Column(name = "creado_en")

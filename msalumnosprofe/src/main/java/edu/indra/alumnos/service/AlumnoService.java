@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 
 import edu.indra.alumnos.dto.FraseChuckNorris;
-import edu.indra.alumnos.repository.entity.Alumno;
+import edu.indra.comun.entity.Alumno;
 
 public interface AlumnoService {
 	

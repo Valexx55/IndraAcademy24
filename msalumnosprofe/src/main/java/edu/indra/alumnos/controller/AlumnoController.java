@@ -32,8 +32,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.indra.alumnos.dto.FraseChuckNorris;
-import edu.indra.alumnos.repository.entity.Alumno;
 import edu.indra.alumnos.service.AlumnoService;
+import edu.indra.comun.entity.Alumno;
 
 //@CrossOrigin(originPatterns = {"*"}, methods = {RequestMethod.GET})
 @RestController

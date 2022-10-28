@@ -2,8 +2,7 @@ package edu.indra.cursos.service;
 
 import java.util.Optional;
 
-
-import edu.indra.cursos.repository.entity.Curso;
+import edu.indra.comun.entity.Curso;
 
 
 public interface CursoService {

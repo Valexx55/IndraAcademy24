@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import edu.indra.alumnos.dto.FraseChuckNorris;
 import edu.indra.alumnos.repository.AlumnoRepository;
-import edu.indra.alumnos.repository.entity.Alumno;
+import edu.indra.comun.entity.Alumno;
 
 @Service
 public class AlumnoServiceImpl implements AlumnoService {

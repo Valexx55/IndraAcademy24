@@ -1,4 +1,4 @@
-package edu.indra.alumnos.repository.entity;
+package edu.indra.comun.entity;
 
 import java.util.Date;
 
@@ -25,7 +25,7 @@ import javax.validation.constraints.Size;
 @Table(name = "alumnos")
 @NamedStoredProcedureQueries(
 		{
-			@NamedStoredProcedureQuery(name="Alumno.alumnosRegistradosHoy", procedureName = "obtenerAlumnosRegistradosHoy", resultClasses = edu.indra.alumnos.repository.entity.Alumno.class),
+			@NamedStoredProcedureQuery(name="Alumno.alumnosRegistradosHoy", procedureName = "obtenerAlumnosRegistradosHoy", resultClasses = edu.indra.comun.entity.Alumno.class),
 			@NamedStoredProcedureQuery(name="Alumno.alumnosEdadMediaMinMax", procedureName = "calcular_max_min_media_edad",
 			parameters = {
 					@StoredProcedureParameter(mode = ParameterMode.INOUT , type = Integer.class , name ="edadmax"),
@@ -36,7 +36,7 @@ import javax.validation.constraints.Size;
 			parameters = {
 					@StoredProcedureParameter(mode = ParameterMode.IN , type = String.class , name ="patron")
 			}
-			,resultClasses = edu.indra.alumnos.repository.entity.Alumno.class)
+			,resultClasses = edu.indra.comun.entity.Alumno.class)
 		}
 		)
 public class Alumno {

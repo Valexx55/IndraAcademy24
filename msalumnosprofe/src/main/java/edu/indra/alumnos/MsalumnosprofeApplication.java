@@ -2,10 +2,14 @@ package edu.indra.alumnos;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableEurekaClient //activamos el cliente de eureka
+@EntityScan("edu.indra.comun")//con esta anotación, le ayudo a encontrar la entidad Curso (que la hemos movido a otro paquete
+//@ComponentScan//obligatorio usar si los componentes (servicios, repo y controller,) están fuera del paquete raíz
 public class MsalumnosprofeApplication {
 	
 	/**
