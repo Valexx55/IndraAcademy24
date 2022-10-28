@@ -361,6 +361,139 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Pagina ALUMNO ORDEN EDAD",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/alumno/pagina?page=0&size=3&sort=edad,nombre,ASC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"alumno",
+						"pagina"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "3"
+						},
+						{
+							"key": "sort",
+							"value": "edad,nombre,ASC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LISTAR ALUMNOS VIA GATEWAY",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/api/alumnos/",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"alumnos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LISTAR CURSOS VIA GATEWAY",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/api/cursos",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"cursos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AÑADIMOS ALUMNOS AL CURSO VIA GATEWAY",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"id\": 10,\r\n        \"nombre\": \"Pedro\",\r\n        \"apellido\": \"Sanchez\",\r\n        \"email\": \"pedro@correo.es\",\r\n        \"edad\": 52,\r\n        \"creadoEn\": \"2022-10-26T11:09:20.254+00:00\"\r\n    },\r\n    {\r\n        \"id\": 11,\r\n        \"nombre\": \"Santiago\",\r\n        \"apellido\": \"Abascal\",\r\n        \"email\": \"santi@correo.es\",\r\n        \"edad\": 52,\r\n        \"creadoEn\": \"2022-10-26T11:09:34.576+00:00\"\r\n    },\r\n    {\r\n        \"id\": 12,\r\n        \"nombre\": \"Olga\",\r\n        \"apellido\": \"Garcia\",\r\n        \"email\": \"olga@correo.es\",\r\n        \"edad\": 32,\r\n        \"creadoEn\": \"2022-10-26T11:09:56.611+00:00\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8090/api/cursos/asignarAlumnos/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"cursos",
+						"asignarAlumnos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ELIMINAR ALUMNOS CURSO VIA GATEWAY",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n            \"id\": 10,\r\n            \"nombre\": \"Pedro\",\r\n            \"apellido\": \"Sanchez\",\r\n            \"email\": \"pedro@correo.es\",\r\n            \"edad\": 52,\r\n            \"creadoEn\": \"2022-10-26T11:09:20.254+00:00\"\r\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8090/api/cursos/eliminarAlumno/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"cursos",
+						"eliminarAlumno",
+						"1"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

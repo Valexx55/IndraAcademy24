@@ -1,13 +1,16 @@
 package edu.indra.comun.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -23,7 +26,9 @@ public class Curso {
 	
 	private String nombre;
 	
-	//private List<Alumno> alumnos;
+	
+	@OneToMany (fetch = FetchType.LAZY)
+	private List<Alumno> alumnos;
 	
 	
 	@Column(name = "creado_en")
@@ -36,7 +41,25 @@ public class Curso {
 		this.creadoEn = new Date();
 	}
 
+	public List<Alumno> getAlumnos() {
+		return alumnos;
+	}
+
+	public void setAlumnos(List<Alumno> alumnos) {
+		this.alumnos = alumnos;
+	}
+
+	public void addAlumno (Alumno alumno)
+	{
+		this.alumnos.add(alumno);
+	}
 	
+	public void eliminarAlumno (Alumno alumno)
+	{
+		this.alumnos.remove(alumno);
+	}
+
+
 	public Long getId() {
 		return id;
 	}
@@ -64,6 +87,17 @@ public class Curso {
 	
 	public Curso() {
 		// TODO Auto-generated constructor stub
+		this.alumnos = new ArrayList<Alumno>();
+	}
+	
+	
+	public Curso(Long id, String nombre, List<Alumno> alumnos, Date creadoEn) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.alumnos = alumnos;
+		this.creadoEn = creadoEn;
+		this.alumnos = new ArrayList<Alumno>();
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package edu.indra.cursos.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.indra.comun.entity.Alumno;
 import edu.indra.comun.entity.Curso;
 import edu.indra.cursos.service.CursoService;
 
@@ -99,6 +101,45 @@ public class CursoController {
 			this.cursoService.deleteById(id);
 			responseEntity = ResponseEntity.ok().build();
 
+		return responseEntity;
+
+	}
+	
+	@PutMapping("/asignarAlumnos/{idcurso}") // PUT http://localhost:8081/curso/5
+	public ResponseEntity<?> asignarAlumnos(@RequestBody List<Alumno> alumnos, @PathVariable Long idcurso) {
+		ResponseEntity<?> responseEntity = null;
+		Optional<Curso> o_curso = null;
+			
+				o_curso = this.cursoService.asignarAlumos(alumnos, idcurso);
+	
+				if (o_curso.isPresent()) {
+					Curso curso_modificado = o_curso.get();
+					responseEntity = ResponseEntity.ok(curso_modificado);
+				} else {
+					// no había un alumno con ese ID
+					responseEntity = ResponseEntity.notFound().build();// 404
+				}
+	
+		return responseEntity;
+
+	}
+	
+	
+	@PutMapping("/eliminarAlumno/{idcurso}") // PUT http://localhost:8081/curso/5
+	public ResponseEntity<?> eliminarAlumno(@RequestBody Alumno alumno, @PathVariable Long idcurso) {
+		ResponseEntity<?> responseEntity = null;
+		Optional<Curso> o_curso = null;
+			
+				o_curso = this.cursoService.eliminarAlumno(alumno, idcurso);
+	
+				if (o_curso.isPresent()) {
+					Curso curso_modificado = o_curso.get();
+					responseEntity = ResponseEntity.ok(curso_modificado);
+				} else {
+					// no había un alumno con ese ID
+					responseEntity = ResponseEntity.notFound().build();// 404
+				}
+	
 		return responseEntity;
 
 	}

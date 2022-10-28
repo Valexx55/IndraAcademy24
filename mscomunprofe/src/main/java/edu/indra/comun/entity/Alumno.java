@@ -1,6 +1,7 @@
 package edu.indra.comun.entity;
 
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -136,6 +137,22 @@ public class Alumno {
 				+ edad + ", creadoEn=" + creadoEn + "]";
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		boolean iguales = false;
+		
+			if (this == obj)
+			{
+				iguales = true;
+			} else if (obj instanceof Alumno) //if (obj instanceof Alumno a)//https://docs.oracle.com/en/java/javase/14/language/pattern-matching-instanceof-operator.html
+			{
+				Alumno a = (Alumno)obj;
+				Objects.equals(this.id, a.id);
+				iguales = ((this.id != null)&&(this.id.equals(a.id)));//Objects.equals(this.id, a.id);
+			}
+		
+		return iguales;
+	}
 	
 
 }
