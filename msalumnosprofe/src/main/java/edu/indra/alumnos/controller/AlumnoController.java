@@ -1,5 +1,6 @@
 package edu.indra.alumnos.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -13,10 +14,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -31,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.indra.alumnos.dto.FraseChuckNorris;
 import edu.indra.alumnos.service.AlumnoService;
@@ -140,6 +145,109 @@ public class AlumnoController {
 		return responseEntity;
 
 	}
+	
+	
+	
+	@PostMapping ("/crear-con-foto") // POST http://localhost:8081/alumno/crear-con-foto
+	public ResponseEntity<?> insetarAlumnoConFoto(@Valid Alumno alumno, BindingResult bindingResult, MultipartFile archivo ) throws IOException {
+		ResponseEntity<?> responseEntity = null;
+		Alumno alumno_creado = null;
+
+			logger.debug("en insetarAlumno()");
+			if (bindingResult.hasErrors()) {
+				// el alumno viene con errores
+				logger.debug("el alumno viene con errores");
+				responseEntity = obtenerErrores(bindingResult);
+	
+			} else {
+				logger.debug("el alumno viene sin errores");
+				
+				if (!archivo.isEmpty())
+				{
+					logger.debug("el alumno viene con foto");
+					try {
+						alumno.setFoto(archivo.getBytes());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						logger.error("Error al tratar la foto", e);
+						throw e;
+					}
+				}
+				
+				alumno_creado = this.alumnoService.save(alumno);
+				responseEntity = ResponseEntity.status(HttpStatus.CREATED).body(alumno_creado);
+			}
+
+		return responseEntity;
+
+	}
+	
+	
+	@PutMapping("/editar-con-foto/{id}") //PUT localhost:8081/alumno/id
+	public ResponseEntity<?> modificarAlumnoConFoto (@Valid Alumno alumno, BindingResult bindingResult, MultipartFile archivo, @PathVariable Long id) throws IOException
+	{
+		 ResponseEntity<?> responseEntity = null;
+		 Optional<Alumno> optional_alumno = null;
+		 
+		 	this.logger.debug("modificarAlumno()");
+		 	if (bindingResult.hasErrors())
+		 	{
+		 		//viene con errores
+		 		//devolver un mensaje de error //BAD REQUEST -le enviamos los fallos
+		 	
+		 		responseEntity = obtenerErrores(bindingResult);
+		 	} else {
+		 		//sin fallos- seguimos con el update
+		 		this.logger.debug("modificarAlumno() - TRAE ERRORES");
+		 		
+		 		
+		 		if (!archivo.isEmpty())
+		 		{
+		 			try {
+						alumno.setFoto(archivo.getBytes());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						logger.error("Error al actualizar el alumno con foto", e);
+						throw e;
+					}
+		 		}
+		 		
+		 		optional_alumno = this.alumnoService.update(alumno, id);
+			 	if (optional_alumno.isPresent())
+			 	{
+			 		responseEntity = ResponseEntity.ok(optional_alumno.get());
+			 	} else 
+			 	{
+			 		//no existía
+			 		responseEntity = ResponseEntity.notFound().build();
+			 	}
+		 	}
+		 
+		 
+		 return responseEntity; //este será el HTTP de vuelta
+	}
+	
+	
+	@GetMapping("/obtenerFoto/{id}") // GET http://localhost:8081/alumno/obtenerFoto/5
+	public ResponseEntity<?> obtenerFotoAlumno(@PathVariable Long id) {
+		ResponseEntity<?> responseEntity = null;
+		Optional<Alumno> o_alumno = null;
+		Resource imagen = null;
+
+			o_alumno = this.alumnoService.findById(id);
+			if (o_alumno.isPresent()&&o_alumno.get().getFoto()!=null) {
+				Alumno alumno_leido = o_alumno.get();
+				imagen = new ByteArrayResource (alumno_leido.getFoto());
+				responseEntity = ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imagen);
+			} else {
+				// no había un alumno con ese ID
+				responseEntity = ResponseEntity.noContent().build();
+			}
+
+		return responseEntity;
+
+	}
+
 
 	@PutMapping("/{id}") // PUT http://localhost:8081/alumno/5
 	public ResponseEntity<?> modificarAlumno(@Valid @RequestBody Alumno alumno, BindingResult bindingResult,

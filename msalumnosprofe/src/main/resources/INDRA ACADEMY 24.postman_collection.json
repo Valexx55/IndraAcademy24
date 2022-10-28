@@ -494,6 +494,149 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "CONSULTA CURSO ALUMNO GATEWAY",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/api/cursos/obtenerCursoAlumno/11",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"cursos",
+						"obtenerCursoAlumno",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREAR ALUMNO CON FOTO GATEWAY",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nombre",
+							"value": "Gema",
+							"type": "text"
+						},
+						{
+							"key": "edad",
+							"value": "33",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "gema@correo.es",
+							"type": "text"
+						},
+						{
+							"key": "apellido",
+							"value": "Lopez",
+							"type": "text"
+						},
+						{
+							"key": "archivo",
+							"type": "file",
+							"src": "/C:/Users/valer/Pictures/Android-Logo.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8090/api/alumnos/crear-con-foto",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"alumnos",
+						"crear-con-foto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MODIFICAR ALUMNO CON FOTO",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nombre",
+							"value": "Gema",
+							"type": "text"
+						},
+						{
+							"key": "apellido",
+							"value": "Lopez",
+							"type": "text"
+						},
+						{
+							"key": "edad",
+							"value": "33",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "gema@correo.es",
+							"type": "text"
+						},
+						{
+							"key": "archivo",
+							"type": "file",
+							"src": "/C:/Users/valer/Pictures/4766671.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8090/api/alumnos/editar-con-foto/13",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"alumnos",
+						"editar-con-foto",
+						"13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OBTENER FOTO ALUMNO GATEWAY",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/api/alumnos/obtenerFoto/13",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"alumnos",
+						"obtenerFoto",
+						"13"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
