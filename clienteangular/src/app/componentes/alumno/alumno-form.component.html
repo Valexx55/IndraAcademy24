@@ -1,0 +1,54 @@
+<div class="card bg-light mb-3">
+    <div class="card-header">{{titulo}}
+
+    </div>
+    <div class="card-body">
+        <button class="btn btn-secondary my-2" routerLink="/alumnos">VOLVER</button>
+        <form #formulario_alumno="ngForm" (ngSubmit)="alumno.id? editar() : crear(formulario_alumno.value)">
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <!-- <input class="form-control" type="text" #nombre="ngModel" name="nombre" [(ngModel)]="alumno.nombre" required pattern=".{4,}"> -->
+                <input class="form-control" type="text" #nombre="ngModel" name="nombre" [(ngModel)]="alumno.nombre">
+                <div class="alert alert-danger" [hidden]="nombre.valid||nombre.pristine||nombre.value==''">
+                    <!-- <div class="alert alert-danger" [hidden]="nombre.valid"> -->
+                    Nombre de al menos cuatro letras
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <!-- <input class="form-control" type="text" #apellido="ngModel" name="apellido" [(ngModel)]="alumno.apellido" required> -->
+                <input class="form-control" type="text" #apellido="ngModel" name="apellido" [(ngModel)]="alumno.apellido">
+                <div class="alert alert-danger" [hidden]="apellido.valid||apellido.pristine||apellido.value==''">
+                    <!-- <div class="alert alert-danger" [hidden]="nombre.valid"> -->
+                    Apellido obligatorio
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <!-- <input class="form-control" type="email" #email="ngModel" name="email" [(ngModel)]="alumno.email" required email> -->
+                <input class="form-control" type="email" #email="ngModel" name="email" [(ngModel)]="alumno.email">
+                <div class="alert alert-danger" [hidden]="email.valid||email.pristine||email.value==''">
+                    <!-- <div class="alert alert-danger" [hidden]="nombre.valid"> -->
+                    Email incorrecto
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="edad">Edad</label>
+                <!-- <input class="form-control" type="number" #edad="ngModel" min="0" max="130" name="edad" [(ngModel)]="alumno.edad"  required> -->
+                <input class="form-control" type="number" #edad="ngModel" min="0" max="130" name="edad" [(ngModel)]="alumno.edad">
+                <div class="alert alert-danger" [hidden]="edad.valid||edad.pristine||edad.value==0">
+                    <!-- <div class="alert alert-danger" [hidden]="nombre.valid"> -->
+                    Introduzca una edad válida
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="foto">Foto</label>
+                <input class="form-control" (change)="seleccionarFoto($event)" type="file" id="foto" >       
+            </div>
+            <div class="form-group">
+                <button type="submit" [disabled]=!(formulario_alumno.valid) class="btn btn-primary my-3">{{ alumno.id ? 'ACTUALIZAR' : 'CREAR' }}</button>
+            </div>
+        </form>
+
+    </div>
+</div>

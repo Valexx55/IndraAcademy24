@@ -1,0 +1,18 @@
+Creacion componente
+
+        ng g c nombre-componente 
+                --skiptTests = true //evitamos que se genere el fichero spec test
+                --flat //evitamos que se genere una subcarpeta para el componente
+
+
+Angular routing
+
+        app-roting module definir las rutas en un array estableciendo
+        la correspondencia entre ruta - componente
+
+        const routes: Routes = [
+        {path:"alumnos", component: AlumnoComponent},
+        {path:"alumnospag", component: AlumnopaginaComponent},
+        {path:"alumnos/form", component: AlumnoFormComponent},
+        {path:"alumnos/form/:id", component: AlumnoFormComponent}
+        ];
